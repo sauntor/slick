@@ -112,7 +112,7 @@ abstract class AbstractSourceCodeGenerator(model: m.Model)
       else throw new Exception("Cannot generate tuple for > 22 columns, please set hlistEnable=true or override compound.")
     }
 
-    def factory   = if(columns.size == 1 || isMappedToHugeClass) TableClass.elementType else s"${TableClass.elementType}.tupled"
+    def factory   = if(columns.size == 1 || isMappedToHugeClass) TableClass.elementType else s"(${TableClass.elementType}.apply _).tupled"
 
     trait ASEntityTypeDef extends AEntityTypeDef{
       def code = {
