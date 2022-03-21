@@ -225,7 +225,7 @@ trait MySQLProfile extends JdbcProfile { profile =>
           case node => expr(node)
         }
         b"\)"
-      case _ => super.expr(n)
+      case _ => super.expr(n, skipParens)
     }
 
     override protected def buildFetchOffsetClause(fetch: Option[Node], offset: Option[Node]) = (fetch, offset) match {
