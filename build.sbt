@@ -74,11 +74,15 @@ def slickGeneralSettings =
     logBuffered := false
   )
 
-// set the scala-compiler dependency unless a local scala is in use
+// add a scala 2 compiler dependency unless a local scala is in use
 def compilerDependencySetting(config: String) =
-  if (sys.props("scala.home.local") != null) Nil else Seq(
-    libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % config
-  )
+  libraryDependencies ++=
+    (if (sys.props("scala.home.local") == null && scalaVersion.value.startsWith("2."))
+      List(
+        "org.scala-lang" % "scala-compiler" % scalaVersion.value % config
+      )
+    else
+      Nil)
 
 def extTarget(extName: String): Seq[Setting[File]] =
   sys.props("slick.build.target") match {
@@ -123,6 +127,7 @@ lazy val slick =
     .settings(
       slickGeneralSettings,
       compilerDependencySetting("macro"),
+      compilerDependencySetting("provided"),
       inConfig(MacroConfig)(Defaults.configSettings),
       FMPP.preprocessorSettings,
       extTarget("slick"),
@@ -140,7 +145,6 @@ lazy val slick =
 
       ivyConfigurations += MacroConfig.hide.extend(Compile),
       Compile / unmanagedClasspath ++= (MacroConfig / products).value,
-      libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided",
       (Compile / packageSrc / mappings) ++= (MacroConfig / packageSrc / mappings).value,
       (Compile / packageBin / mappings) ++= (MacroConfig / packageBin / mappings).value,
 
