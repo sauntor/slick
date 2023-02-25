@@ -6,7 +6,7 @@ object Dependencies {
   // NOTE: remember to change the version numbers in the sample projects
   // when changing them here
 
-  val scalaVersions = Seq("2.12.17", "2.13.10") // When updating these also update ci.yml and appveyor.yml
+  val scalaVersions = Seq("2.13.10") // When updating these also update ci.yml and .mergify.yml
 
   val slf4j = "org.slf4j" % "slf4j-api" % "2.0.6"
   val typesafeConfig = "com.typesafe" % "config" % "1.4.2"
@@ -37,11 +37,11 @@ object Dependencies {
     h2,
     sqlServer,
     "org.apache.derby" % "derby" % "10.14.2.0",
-    "org.xerial" % "sqlite-jdbc" % "3.40.0.0",
+    "org.xerial" % "sqlite-jdbc" % "3.41.0.0",
     "org.hsqldb" % "hsqldb" % "2.5.2",
-    "org.postgresql" % "postgresql" % "42.5.1",
+    "org.postgresql" % "postgresql" % "42.5.4",
     "mysql" % "mysql-connector-java" % "8.0.32",
-    "com.oracle.database.jdbc.debug" % "ojdbc8_g" % "21.8.0.0",
+    "com.oracle.database.jdbc.debug" % "ojdbc8_g" % "21.9.0.0",
     "com.ibm.db2.jcc" % "db2jcc" % "db2jcc4"
   )
 
